@@ -2,7 +2,7 @@ const Room =require('../model/roomModel')
 
 module.exports.getRoom=async(req,res)=>{
     try {
-        const nameList =await Room.find({});
+        const nameList =await Room.find({createdby:req.userId});
 
         if(nameList){
             res.json(nameList)
@@ -15,6 +15,7 @@ module.exports.createRoom =async(req,res)=>{
     try {
         const roomName = new Room ({
             room:req.body.room,
+            createdby:req.userId,
         })
         const createData=await roomName.save();
         if(createData){
